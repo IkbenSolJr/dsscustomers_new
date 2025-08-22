@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="dsscustomers_attendance_session_form_view_inherit" model="ir.ui.view">
+        <field name="name">dsscustomers.attendance.sheet.form.inherit</field>
+        <field name="model">dsscustomers.session</field>
+        <field name="inherit_id" ref="dsscustomers.view_dsscustomers_session_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@name='button_box']" position="inside">
+               <button class="btn oe_stat_button" type="object"
+                                    name="get_attendance" string="Bảng điểm danh"
+                                    style="border-right: 1px solid;"
+                                    icon="fa-book"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_dsscustomers_teacher_form" model="ir.ui.view">
+        <field name="name">dsscustomers.teacher.form</field>
+        <field name="model">dsscustomers.teacher</field>
+        <field name="priority" eval="20"/>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                <div name="button_box" class="oe_button_box">
+                    <button class="btn oe_stat_button"
+                            type="object"
+                            name="count_sessions_details"
+                            style="border-right: 1px solid;"
+                            icon="fa-calendar">
+                        <field string="Sessions" name="session_count" widget="statinfo"/>
+                    </button> 
+               </div>
+                        <field name="active" invisible="1"/>
+                    <group>
+                        <group>
+                            <field name="teacher_name"/>
+                            <field name="birth_date"/>
+                            <field name="phonetc"/>
+                            <field name="email"/>
+                            <field name="personal_mail"/>
+                        </group>
+                        <group>
+                            <field name="gender"/>                            
+                            <field name="note"/>
+                            <!-- <field name="attachmentcv_ids" widget="many2many_binary"/>                             -->
+                            <!-- <field name="active" invisible="1"/> -->
+                        </group>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+            </form>
+        </field>
+    </record>
+    
+    <record id="view_dsscustomers_teacher_tree" model="ir.ui.view">
+        <field name="name">dsscustomers.teacher.tree</field>
+        <field name="model">dsscustomers.teacher</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="teacher_name"/>
+                <field name="phonetc"/>
+                <field name="gender"/>
+                <field name="birth_date"/>
+                <field name="email" optional="show"/>
+                <field name="personal_mail" optional="show"/>
+                <!-- <field name="session_ids" widget="many2many_tags" optional="show"/>  -->
+                <!-- <field name="attachmentcv_ids" widget="many2many_binary" optional="show"/> -->
+                <field name="note" optional="show"/>
+            </tree>
+        </field>
+    </record>
+
+
+
+    <record id="view_dsscustomers_teacher_search" model="ir.ui.view">
+        <field name="name">dsscustomers.teacher.search</field>
+        <field name="model">dsscustomers.teacher</field>
+        <field name="arch" type="xml">
+            <search string="teachers">
+                <field name="teacher_name"/>
+                <field name="note"/>
+                <separator/>
+                <filter string="Male" name="male" domain="[('gender', '=', 'male')]"/>
+                <filter string="Female" name="female" domain="[('gender', '=', 'female')]"/>
+                <filter string="Others" name="other" domain="[('gender', '=', 'other')]"/>
+                <separator/>
+                <!-- <filter string="Archived" name="inactive" domain="[('active', '=', False)]"/> -->
+                <group expand="1" string="Group By">
+                    <filter string="Gender" name="gender" context="{'group_by':'gender'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_dsscustomers_teacher" model="ir.actions.act_window">
+        <field name="name">Giáo viên</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">dsscustomers.teacher</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create your first teacher!
+            </p>
+        </field>
+    </record>
+
+ <menuitem name="Giáo viên" 
+                id="dsscustomers_menu_4_list" 
+                parent="dsscustomers_menu_3"
+                action="action_dsscustomers_teacher"
+                sequence="4"
+                groups="dsscustomers.group_dsscustomers_daotao_user"/>
+</odoo>

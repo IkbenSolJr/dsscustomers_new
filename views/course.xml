@@ -1,0 +1,113 @@
+<odoo>
+  <data>
+
+<!-- Form view Processing work-->
+  <record model="ir.ui.view" id="view_dsscustomers_course_form">
+      <field name="name">dsscustomers.course.form</field>
+      <field name="model">dsscustomers.course</field>
+      <field name="arch" type="xml">
+               <form string="Khóa học">
+                    <header/>
+                    <sheet>
+                        <field name="active" invisible="1"/>
+                        <widget name="web_ribbon" title="Archived" bg_color="bg-danger"
+                                attrs="{'invisible': [('active', '=', True)]}"/>
+                        <group>
+                            <field name="name" />
+                            <field name="code" />
+                        </group>
+
+                        <group colspan="4" col="4" name="main">
+
+                            <field name="evaluation_type"/>
+                            <field name="parent_id"/>
+                            <field name="min_unit_load"/>
+                            <field name="max_unit_load"/>
+                            <!-- <field name="department_id" groups="openeducat_core.group_multi_department"/> -->
+                        </group>
+                       <group string="Subjects" name="subject">
+                            <field name="subject_ids" nolabel="1"/>
+                        </group>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+      </field>
+    </record>
+
+    <!-- list view Processing nghe -->
+    <record model="ir.ui.view" id="view_dsscustomers_course_tree">
+      <field name="name">dsscustomers.course.tree</field>
+      <field name="model">dsscustomers.course</field>
+      <field name="arch" type="xml">
+             <tree string="Course">
+                    <field name="name"/>
+                    <field name="code"/>
+                    <field name="evaluation_type"/>
+                    <field name="parent_id"/>
+                     <field name="subject_ids" widget="many2many_tags"/>
+                    <field name="min_unit_load" optional="hide"/>
+                    <field name="max_unit_load" optional="hide"/>
+                </tree>
+      </field>
+    </record>
+<!-- pivot -->
+       <record id="view_customer_course_pivot" model="ir.ui.view">
+            <field name="name">dsscustomers.course.pivot</field>
+            <field name="model">dsscustomers.course</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <pivot string="Course">
+                    <field name="name" type="row"/>
+                    <field name="parent_id"/>
+                    <field name="max_unit_load"/>
+                    <field name="min_unit_load"/>
+                </pivot>
+            </field>
+        </record>
+    <!-- Search -->
+        <record id="view_customers_course_filter" model="ir.ui.view">
+            <field name="name">dsscustomers.course.search</field>
+            <field name="model">dsscustomers.course</field>
+            <field name="arch" type="xml">
+                <search string="Course">
+                    <field name="name"/>
+                    <field name="code"/>
+                    <field name="evaluation_type"/>
+                    <field name="parent_id"/>
+                    <!-- <field name="department_id"/> -->
+                    <newline/>
+                    <group expand="0" string="Group By...">
+                        <filter name="group_by_evaluation_type"
+                                string="Evaluation Type" domain="[]"
+                                context="{'group_by':'evaluation_type'}"/>
+                        <filter name="group_by_partner_course"
+                                string="Parent Course" domain="[]"
+                                context="{'group_by':'parent_id'}"/>
+                        <filter string="Archived" name="inactive" domain="[('active', '=', False)]"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+
+   <!-- Action-->
+   <record model="ir.actions.act_window" id="action_dsscustomers_course">
+      <field name="name">Khoa học</field>
+      <field name="res_model">dsscustomers.course</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
+<!-- Menu-->
+ <menuitem name="Khóa học"
+                id="dsscustomers_menu_khoa_hoc" 
+                parent="dsscustomers_menu_3"
+                action="action_dsscustomers_course"
+                sequence="2"
+                groups="dsscustomers.group_dsscustomers_daotao_user"/>
+
+
+  </data>
+</odoo>

@@ -1,0 +1,110 @@
+<odoo>
+  <data>
+
+<!-- Form view Processing work-->
+  <record model="ir.ui.view" id="processing_nghe_dsscustomers_view_form">
+      <field name="name">dsscustomers.processing.nghe.form</field>
+      <field name="model">dsscustomers.processing.nghe</field>
+      <field name="arch" type="xml">
+        <form>
+          <sheet>
+             <div class="oe_title">
+                    <h1>
+                            <field name="khachhangnghe_ids" readonly="1"/>
+                    </h1>
+                   </div>
+
+                    <group>
+                        <group>
+                            <field name="masokh"/> 
+                            <field name="thuthaphs"/>
+                            <field name="hsphongvan"/>
+                            <field name="pvvoichuld"/> 
+                            <field name="sa"/> 
+                        </group>
+                        <group>
+                            <field name="nomination"/>
+                            <field name="hsvisa"/>
+                            <field name="ngaybay_granted" attrs="{'invisible': [('hsvisa' ,'!=', 'granted')]}"/>
+                           <field name="reapply_refused" attrs="{'invisible': [('hsvisa' ,'!=', 'refused')]}"/>
+                            <field name="lmia"/>
+                            <field name="userpro_id" readonly="1"/>
+                        </group>
+                </group>
+            </sheet>
+              <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+              </div>
+        </form>
+      </field>
+    </record>
+
+
+    <!-- list view Processing nghe -->
+    <record model="ir.ui.view" id="view_dsscustomers_processing_nghe_tree">
+      <field name="name">dsscustomers.processing.nghe.tree</field>
+      <field name="model">dsscustomers.processing.nghe</field>
+      <field name="arch" type="xml">
+          <tree multi_edit="1" create="false">
+                <field name="khachhangnghe_ids"/>
+                <field name="masokh" optional="show"/> 
+                <field name="phonekh" optional="show"/> 
+                <field name="visa" optional="show"/> 
+                <field name="thuthaphs" optional="show"/>
+                <field name="hsphongvan" optional="show"/>
+                <field name="pvvoichuld" optional="show"/> 
+                <field name="sa" optional="show"/> 
+                <field name="nomination" optional="show"/>
+                <field name="hsvisa" optional="show"/>
+                <field name="ngaybay_granted" optional="show"/>
+                <field name="reapply_refused" optional="show"/>
+                <field name="lmia" optional="show"/> 
+                <field name="userpro_id" optional="hide" readonly="1"/>
+          </tree>
+      </field>
+    </record>
+
+    <!-- Search -->
+        <record id="view_customers_nghe_filter" model="ir.ui.view">
+            <field name="name">dsscustomers.processing.nghe.search</field>
+            <field name="model">dsscustomers.processing.nghe</field>
+            <field name="arch" type="xml">
+               <search string="Search">
+                    <field name="khachhangnghe_ids" string="Tên Khách hàng"/>
+                    <field name="masokh"/>
+                    <field name="phonekh"/>
+                    <field name="visa"/>
+                    <filter string="Khách hàng của tôi" name="assigned_to_me"
+                        domain="[('userpro_id', '=', uid)]"/>     
+                    <group expand="0" string="Group By">
+                        <filter string="Visa" name="visa" context="{'group_by':'visa'}"/>
+                    </group>
+            </search>
+            </field>
+        </record>
+
+
+
+   <record model="ir.actions.act_window" id="action_dsscustomers_processing_nghe">
+      <field name="name">Processing Lao động</field>
+      <field name="res_model">dsscustomers.processing.nghe</field>
+      <field name="view_mode">tree,form</field>
+            <field name="context">{
+              'search_default_assigned_to_me': 1
+      }</field>
+      <field name="search_view_id" ref="dsscustomers.view_customers_nghe_filter"/>
+    </record>
+
+
+<!-- Menu-->
+
+    <menuitem name="Processing Lao động"
+            id="dsscustomers_menu_list_10" 
+            parent="dsscustomers_menu_7"
+            action="action_dsscustomers_processing_nghe"
+            groups="dsscustomers.group_dsscustomers_processing_user"/>
+
+  </data>
+</odoo>

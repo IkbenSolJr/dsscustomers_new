@@ -1,0 +1,72 @@
+<odoo>
+  <data>
+
+<!-- Form view -->
+  <record model="ir.ui.view" id="lichhoc_dsscustomers_view_form">
+      <field name="name">dsscustomers.lichhoc.form</field>
+      <field name="model">dsscustomers.lichhoc</field>
+      <field name="arch" type="xml">
+        <form>
+          <sheet>
+          <group>
+                  <group>
+                          <field name="sott"/>
+                          <field name="khachhang_ids"/>
+                          <field name="thanhphodt"/>
+                          <field name="masokh"/>
+                  </group>    
+                   <group>
+                          <field name="ngayhoc"/>
+                          <field name="giohoc"/>
+                          <field name="date_lichhoc"/>
+                          <field name="giaovien"/>
+                  </group>   
+                   </group>  
+            </sheet>
+              <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+              </div>
+        </form>
+      </field>
+    </record>
+    <!-- list view-->
+    <record model="ir.ui.view" id="view_dsscustomers_lichhoc_tree">
+      <field name="name">dsscustomers.lichhoc.tree</field>
+      <field name="model">dsscustomers.lichhoc</field>
+      <field name="arch" type="xml">
+        <tree editable="bottom" multi_edit="1">
+          <field name="sott"/>
+          <field name="masokh"/>
+          <field name="khachhang_ids"/>
+          <field name="thanhphodt" optional="hide"/>
+          <field name="ngayhoc"/>
+          <field name="giohoc"/>
+          <field name="giaovien"/>
+          <field name="date_lichhoc"/>
+
+        </tree>
+      </field>
+    </record>
+
+
+    <!-- actions opening views on models -->
+
+    <record model="ir.actions.act_window" id="action_dsscustomers_lichhoc">
+      <field name="name">Lịch học</field>
+      <field name="res_model">dsscustomers.lichhoc</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
+
+<menuitem name="Đào tạo" id="dsscustomers_menu_3" parent="menu_dsscustomers_root"/>
+ 
+ <menuitem name="Lịch học" 
+                id="dsscustomers_menu_3_list" 
+                parent="dsscustomers_menu_3"
+                action="action_dsscustomers_lichhoc"
+                groups="dsscustomers.group_dsscustomers_daotao_user"/>
+
+  </data>
+</odoo>

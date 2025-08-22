@@ -1,0 +1,81 @@
+<odoo>
+  <data>
+    <!-- Tree view Active-->
+    <record model="ir.ui.view" id="dsscustomers_cskh_view_tree">
+      <field name="name">DSS CSKH</field>
+      <field name="model">dsscustomers.dsscustomers</field>
+      <field name="arch" type="xml">
+        <tree multi_edit="1" decoration-success="visa == '482'" default_order="id desc" export_xlsx="false" delete="false">
+            <!-- Thông tin cơ bản -->
+            <!-- <field name="thutu"/> -->
+            <field name="stt_count" optional="hide"/>
+			      <field name="masokh" optional="show"/> 
+            <field name="khachhang_id" readonly="1"/>          
+            <field name="visa" optional="show"/> 
+            <!-- <field name="namsinh" optional="hide"/>  -->
+            <!-- <field name="emailkh" optional="hide"/>  -->
+            <!-- <field name="phonekh" optional="hide" groups="dsscustomers.group_dsscustomers_sale_user"/> 
+            <field name="mobile" optional="hide" groups="dsscustomers.group_dsscustomers_sale_user"/> 
+            <field name="nhucaukh" optional="hide"/> 
+            <field name="trinhdokh" optional="hide"/>                  
+            <field name="diachi" optional="hide"/> 
+            <field name="nghenghiep" optional="hide"/>
+            <field name="nghenghiepvisa" optional="hide"/> -->
+            <field name="tinhtranghs" optional="show"/> 
+            <field name="daotaonghe" optional="hide"/>
+            <field name="trangthaihs" optional="show"/>
+            <!-- <field name="nguoiquanly" optional="hide"/> -->
+           
+            <!-- Thông tin kế toán -->
+            <field name="ngaychothd" optional="show"/>
+            <!-- <field name="phihopdong" groups="dsscustomers.group_dsscustomers_ketoan_user" optional="hide"/>
+            <field name="bangluong" groups="dsscustomers.group_dsscustomers_ketoan_user" optional="hide"/>
+            <field name="vitricv" groups="dsscustomers.group_dsscustomers_ketoan_user" optional="hide"/>
+            <field name="ngayravisa" groups="dsscustomers.group_dsscustomers_ketoan_user" optional="hide"/>
+            <field name="hdlaodong" groups="dsscustomers.group_dsscustomers_ketoan_user" optional="hide"/>    
+            <field name="pvchulaodong" groups="dsscustomers.group_dsscustomers_ketoan_user" optional="hide"/>  -->
+
+            <!-- Thông tin đào tạo -->
+            <field name="tinhtrangdaotao" optional="hide"/>
+            <!-- <field name="loptienganh" optional="hide"/>
+            <field name="target" optional="hide"/>
+            <field name="dukientarget" optional="hide"/> -->
+            <field name="user_id" optional="show" readonly="1"/>
+            <field name="usercs_id" groups="dsscustomers.group_dsscustomers_cs_user" optional="hide"/>
+            <!-- <field name="userpro_id" groups="dsscustomers.group_dsscustomers_processing_user" optional="hide"/> -->
+            <!-- <field name="userdt_id" groups="dsscustomers.group_dsscustomers_daotao_user" optional="hide"/> -->
+            <field name="teamphutrach" optional="hide"/>
+            <field name="ghichu" optional="hide"/> 
+            <field name="trangthaics" invisible="1"/>
+        </tree>
+      </field>
+    </record>
+
+      <!-- actions opening views on models -->
+
+    <record model="ir.actions.act_window" id="dsscustomers.action_dsscustomers_cskh">
+      <field name="name">Active</field>
+      <field name="res_model">dsscustomers.dsscustomers</field>
+      <field name="view_mode">tree,form</field>
+      <field name="domain">[('trangthaics','=','active')]</field>
+      <field name="context">{
+                'default_type': 'active',
+                'search_default_type': 'active',
+            }</field>
+    </record>
+
+
+    <!-- menu -->
+    <menuitem name="CSKH/CS" 
+            id="dsscustomers_menu_11" 
+            parent="dsscustomers.menu_dsscustomers_root"            
+            sequence="35" />
+
+    <menuitem name="Active" 
+            id="dsscustomers_kh_active" 
+            parent="dsscustomers_menu_11"
+            action="dsscustomers.action_dsscustomers_cskh"
+            />
+            
+  </data>
+</odoo>

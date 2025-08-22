@@ -1,0 +1,479 @@
+<odoo>
+  <data>
+
+<!-- Form view -->
+  <record model="ir.ui.view" id="dsscustomers_view_form">
+      <field name="name">dsscustomers.dsscustomers.form</field>
+      <field name="model">dsscustomers.dsscustomers</field>
+      <field name="arch" type="xml">
+        <form>
+          <header>
+          </header>
+          <sheet>
+                     <div class="oe_button_box" name="button_box">
+                        <!-- <button name="action_dsscustomers_lichhoc" type="object" groups="dsscustomers.group_dsscustomers_daotao_user" class="oe_stat_button" icon="fa-calendar" >
+                            <div class="o_stat_info">
+                                <span class="o_stat_text">Lịch học</span>
+                            </div>
+                        </button>  -->
+
+                        <button name="action_dsscustomers_nghe" type="object" attrs="{'invisible': [('visa','in',('500','600',False))]}"
+                            groups="dsscustomers.group_dsscustomers_processing_user"                        
+                            class="oe_stat_button" icon="fa-book">
+                            <div class="o_stat_info">
+                                <span class="o_stat_text">Du học nghề</span>
+                            </div>                            
+                        </button> 
+                        <button name="action_dsscustomers_duhoc" type="object" attrs="{'invisible': [('visa' ,'!=', '500')]}"
+                            groups="dsscustomers.group_dsscustomers_processing_user"                        
+                            class="oe_stat_button" icon="fa-book">
+                            <div class="o_stat_info">
+                                <span class="o_stat_text">Du học</span>
+                            </div>                            
+                        </button> 
+                        <button name="action_dsscustomers_ketoan" type="object" 
+                        groups="dsscustomers.group_dsscustomers_ketoan_user" 
+                        class="oe_stat_button" icon="fa-book" >
+                            <div class="o_stat_info">
+                                <span class="o_stat_text">Kế toán</span>
+                            </div>
+                        </button> 
+                        <button name="action_dsscustomers_ngoaingu" type="object"
+                            groups="dsscustomers.group_dsscustomers_processing_user"                        
+                            class="oe_stat_button" icon="fa-book">
+                            <div class="o_stat_info">
+                                <span class="o_stat_text">Đào tạo tiếng Anh</span>
+                            </div>                            
+                        </button> 
+
+                       </div>
+            
+
+                  <field name="image" widget="image" class="oe_avatar"/>
+                    <div class="oe_title">
+                    <h1>
+                            <field name="khachhang_id" readonly="1"/>                           
+                    </h1>              
+                   </div>
+                  <group string="THÔNG TIN CƠ BẢN">
+                        <group>     
+                          <field name="stt_count" readonly="1"/>
+						              <field name="masokh"/>						  
+                          <field name="khachhang_id"  readonly="1"/>
+                          <field name="gioitinh"/>
+                           <!-- <field name="khachhang_id"  attrs="{'readonly': [('id', '!=', False)]}"/> -->
+                          <field name="visa"/>
+                          <field name="namsinh"/>
+                          <field name="emailkh"/>
+                          <field name="phonekh"/>  
+                          <field name="mobile"/>
+                          <field name="nhucaukh"/>
+                          <field name="adskh"/>                          
+                          <field name="trangthaikh"/>
+                          <field name="nguondtkh"/>  
+                          <field name="nghebooking"/>  
+                          <field name="quocgiabook"/> 
+                          <field name="noidungtele"/> 
+                        </group>
+                        <group> 
+                          <field name="trinhdokh"/>
+                          <field name="diachi"/> 
+                          <field name="thanhpho"/>
+                          <field name="nghenghiep"/>
+                          <field name="nghenghiepvisa"/> 
+                          <field name="ndmeeting"/> 
+                          <field name="hocvan"/> 
+                          <field name="trinhdotienganh"/> 
+                           <field name="tinhtranghs"/>  
+                          <field name="daotaonghe"/>
+                          <field name="trangthaihs"/>
+                           <field name="trangthaics"/>
+                          <!-- <field name="nguoiquanly"/>   -->
+                          <field name="user_id" groups="dsscustomers.group_dsscustomers_sale_user"/> 
+                          <field name="teamphutrach" groups="dsscustomers.group_dsscustomers_sale_user"/>                          
+                          <field name="usercs_id" groups="dsscustomers.group_dsscustomers_cs_user"/>
+                          <field name="userpro_id" groups="dsscustomers.group_dsscustomers_processing_user"/>                          
+                          
+                        </group>                    
+                      </group>
+                      <!-- <group string="Hồ sơ đính kèm" name="attachmenthsids">
+                            <field name="attachmenths_ids"  widget="many2many_binary" nolabel="1"/>
+                      </group>  -->
+                    <group string="THÔNG TIN THANH TOÁN"  groups="dsscustomers.group_dsscustomers_ketoan_user">
+                        <group>     
+                          <field name="ngaychothd"/>
+                          <label for="phihopdong"/>
+                          <div name="phihopdong_div" class="o_row">
+                              <field name="phihopdong"/>
+                              <field name="currency_id"
+                                      options="{'no_create': True, 'no_open': True}"
+                                      required="1" /> 
+                          </div>                  
+                          <field name="bangluong"/>
+
+                        </group>
+                        <group>
+                          <field name="vitricv"/>
+                          <field name="ngayravisa"/>
+                          <field name="hdlaodong"/>     
+                          <field name="pvchulaodong"/>
+                          <field name="totaltt"/>                
+                        </group>                    
+                    </group>
+                    <notebook  groups="dsscustomers.group_dsscustomers_ketoan_user">
+                      <page string="Tiến độ thanh toán" name="khachhangktinfo">
+                      <field name="khachhangktinfo_ids" options="{'no_create': False}">  
+                                  <tree>            
+                                          <field name="sottktoan"/>                                  
+                                          <field name="ngaydukien" attrs="{'readonly':[('ktcheck','=',True)]}"/>
+                                          <field name="giaidoantt" optional="show" attrs="{'readonly':[('ktcheck','=',True)]}"/>
+                                          <field name="ngaytt" optional="show" attrs="{'readonly':[('ktcheck','=',True)]}"/>
+                                          <field name="sotientt" sum="Total" attrs="{'readonly':[('ktcheck','=',True)]}"/>
+                                          <field name="ktcheck" optional="show" groups="dsscustomers.group_dsscustomers_ketoan_user"/>
+                                  </tree>
+                            </field>
+                      </page>
+                    </notebook>
+                    <group string="THÔNG TIN PROCESSING" groups="dsscustomers.group_dsscustomers_processing_user"  attrs="{'invisible': [('visa' ,'=', '600')]}" >
+                    </group>
+                    <notebook groups="dsscustomers.group_dsscustomers_processing_user" attrs="{'invisible': [('visa' ,'!=', '500')]}" >
+                      <page string="Thông tin Du học" name="duhocinfoids">
+                            <field name="duhocinfo_ids">  
+                                  <tree multi_edit="1">
+                                      <field name="guichecklist" optional="show"/>
+                                      <field name="nhaphskh" optional="show"/>
+                                      <field name="dichhskh" optional="show"/>
+                                      <field name="xinoffer"  optional="show"/>
+                                      <field name="nhanoffer" optional="show"/>
+                                      <field name="tennganhhoc" optional="hide"/>
+                                      <field name="donghocphioshc" optional="hide"/>                                
+                                      <field name="coes" optional="show"/>
+                                      <field name="vietsopgte" optional="show"/>
+                                      <field name="dienformvisa" optional="hide"/> 
+                                      <field name="nopvisa" optional="hide"/> 
+                                      <field name="bennopvisa" optional="hide"/>
+                                      <field name="ngaynopvisa" optional="show"/>  
+                                      <field name="ngayhethanvisa" optional="show"/>  
+                                      <field name="tappv" optional="hide"/>
+                                      <field name="nhankqpv" optional="hide"/>
+                                      <field name="huongdanbay" optional="hide"/>
+                                  </tree>
+                            </field>                                 
+                      </page>                   
+                  </notebook>
+
+                  <notebook groups="dsscustomers.group_dsscustomers_processing_user" attrs="{'invisible': [('visa','in',('500','600',False))]}" >
+                        <page string="Thông tin Lao động" name="duhocngheinfo">
+                            <field name="duhocngheinfo_ids">   
+                                  <tree multi_edit="1">
+                                        <field name="thuthaphs" optional="show"/>
+                                        <field name="hsphongvan" optional="show"/>
+                                        <field name="pvvoichuld" optional="show"/> 
+                                        <field name="sa" optional="show"/> 
+                                        <field name="nomination" optional="show"/>
+                                        <field name="hsvisa" optional="show"/>
+                                        <field name="ngaybay_granted" optional="hide"/>
+                                        <field name="reapply_refused" optional="hide"/>
+                                        <field name="lmia" optional="hide"/> 
+                                    </tree>
+                            </field>                                 
+                      </page>                 
+                  </notebook>
+
+
+                     <group string="ĐÀO TẠO">
+                        <group>     
+                          <field name="tinhtrangdaotao"/>
+                          <!-- <field name="loptienganh"/> -->
+                        </group>
+                        <group>     
+                          <!-- <field name="target"/> -->
+                          <field name="dukientarget"/>
+                          <!-- <field name="ghichu"/> -->
+                        </group>                    
+                    </group>
+                    <!-- <notebook groups="dsscustomers.group_dsscustomers_daotao_user"> -->
+                     <notebook>
+                        <page string="Thông tin đào tạo ngoại ngữ" name="procesingcurency">
+                        <field name="compute_checkgroups" invisible="1"/>
+                          <field name="dangky_ids" attrs="{'readonly': [('compute_checkgroups', '=', True)]}"> 
+                              <tree delete="0">
+                                    <!-- <field name="madangky"/> -->
+                                    <field name="classroom_id" string ="Lớp"/>
+                                    <!-- <field name="ngaybatdau" string ="Bắt đầu" optional="show"/> 
+                                    <field name="ngaykethuc" string ="Kết thúc" optional="show"/> -->
+                                    <!-- <field name="classstatus" optional="show"/>                                                                -->
+                                    <!-- <field name="actual_start" optional="show"/>
+                                    <field name="actual_end" optional="show"/> -->
+                                    <!-- <field name="ge_score" string ="GE" optional="show"/>
+                                    <field name="ielts_list" string ="Nghe"  optional="show"/>
+                                    <field name="ielts_writ" string ="Viết" optional="show"/>
+                                    <field name="ielts_speak" string ="Đọc" optional="show"/>
+                                    <field name="ielts_over" string ="Over" optional="show"/>                                                                    -->
+                                    <!-- <field name="note" optional="show"/>  -->
+                                    <field name="feedback_training" optional="show"/>
+                                    <field name="interview" optional="show"/>
+                                    <field name="communication" optional="show"/> 
+                                    <field name="tongtiendo" optional="show"/>
+                        
+                                    <!-- <field name="teacher_ids" widget="many2many_tags"/> -->
+                                    <!-- <field name="days"/>
+                                    <field name="time"/> -->
+                               </tree>
+                              <form>
+                                    <sheet>
+                                        <group string="THÔNG TIN LỚP">
+                                              <group>
+                                                    <field name="classroom_id"/>                                
+                                                    <field name="course_id"/>
+                                                    <field name="classstatus"/>                 
+                                                    <field name="ngaybatdau"/> 
+                                                    <field name="ngaykethuc"/>
+                                                    <field name="actual_start"/>
+                                                    <field name="actual_end"/>                                                                                        
+                                              </group>
+                                              <group>                                                      
+                                                      <field name="ge_score"/>
+                                                      <field name="ielts_list"/>
+                                                      <field name="ielts_writ"/>
+                                                      <field name="ielts_speak"/>
+                                                      <field name="ielts_over"/>
+                                                      <field name="note"/>     
+                                                </group>
+                                          </group>
+                                          <group string="KẾT QUẢ ĐÀO TẠO">
+                                                <group>
+                                                    <field name="feedback_training"/>
+                                                    <field name="interview"/>
+                                                </group>
+                                                <group>
+                                                  <field name="communication"/> 
+                                                  <field name="tongtiendo"/>                                            
+                                                </group>
+                                          </group>
+                     
+                                      </sheet>
+                                </form>                           
+                            </field> 
+                        </page>                           
+                  </notebook>
+                  <notebook>
+                        <page string="Thông tin đào tạo nghề" name="daotaonghe">
+                        <field name="compute_checkgroups" invisible="1"/>
+                          <field name="dangkynghe_ids" attrs="{'readonly': [('compute_checkgroups', '=', True)]}">
+                              <tree delete="0">
+                                    <!-- <field name="madangkynghe"/> -->
+                                    <field name="classroomwork_id" string ="Lớp"/>
+                                    <field name="classstatus" optional="show"/>                                     
+                                    <!-- <field name="score" string ="Điểm" optional="show"/> 
+                                    <field name="ngaybatdau" string ="Bắt đầu" optional="show"/> 
+                                    <field name="ngaykethuc" string ="Kết thúc" optional="show"/>                            -->
+                                    <!-- <field name="note" optional="show"/>  -->
+                                    <field name="feedback_training" optional="show"/>
+                                    <field name="lythuyet" optional="show"/>
+                                    <field name="thuchanh" optional="show"/> 
+                                    <field name="thuctap" optional="show"/> 
+                                    <field name="tongtiendo" optional="show"/>
+                               </tree>
+                              <form>
+                                    <sheet>
+                                            <group string="THÔNG TIN LỚP">
+                                              <group>
+                                                    <field name="masokh"/>
+                                                    <field name="classroomwork_id"/>                                
+                                                    <field name="coursework_id"/>
+                                                    <field name="classstatus"/>
+                                                                                                
+                                 
+                                              </group>
+                                              <group>                                                 
+                                                      <field name="ngaybatdau"/> 
+                                                      <field name="ngaykethuc"/>  
+                                                        <field name="note"/>  
+                                               
+                                                </group>
+                                          </group>
+                                          <group string="KẾT QUẢ ĐÀO TẠO">
+
+                                              <group>
+                                                    <field name="score"/>
+                                                    <field name="feedback_training"/>
+                                                    <field name="lythuyet"/>                                                
+                                              </group>
+                                              <group>                                     
+                                                    <field name="thuchanh"/> 
+                                                    <field name="thuctap"/> 
+                                                    <field name="tongtiendo"/>                                            
+                                            </group>
+                                           </group>
+                                      </sheet>
+                                </form>                           
+                            </field> 
+                        </page>                           
+                  </notebook>
+            </sheet>
+            <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="activity_ids" widget="mail_activity"/>
+                    <field name="message_ids" widget="mail_thread"/>
+            </div>   
+        </form>
+      </field>
+    </record>
+    <!-- Tree view-->
+    <record model="ir.ui.view" id="view_dsscustomers_tree">
+      <field name="name">dsscustomers list</field>
+      <field name="model">dsscustomers.dsscustomers</field>
+      <field name="arch" type="xml">
+        <tree multi_edit="1" decoration-success="visa == '482'" default_order="id desc" export_xlsx="false" delete="false">
+            <header> 
+                <button name="action_add_all_to_mailing_list" type="object" string="Tạo Email Marketing" class="oe_highlight"/>
+                <button name="action_add_all_female_to_mailing_list" type="object" string="Tạo Email Marketing Nữ" class="oe_highlight"/>                
+            </header>
+            <!-- Thông tin cơ bản -->
+            <!-- <field name="thutu"/> -->
+            <field name="stt_count"/>
+			      <field name="masokh"/>
+            <field name="khachhang_id" readonly="1"/>
+            <field name="gioitinh" optional="hide"/>           
+            <field name="visa" optional="show"/> 
+            <field name="namsinh" optional="hide"/> 
+            <!-- <field name="emailkh" optional="hide"/>  -->
+            <field name="phonekh" optional="hide" groups="dsscustomers.group_dsscustomers_processing_user"/>
+            <!-- <field name="mobile" optional="hide"/> -->
+            <!-- <field name="nhucaukh" optional="hide"/> 
+            <field name="trinhdokh" optional="hide"/>                  
+            <field name="diachi" optional="hide"/>  -->
+            <!-- <field name="nghenghiep" optional="hide"/> -->
+            <field name="nghenghiepvisa" optional="hide"/>
+            <field name="tinhtranghs" optional="show"/> 
+            <!-- <field name="daotaonghe" optional="hide"/> -->
+            <field name="trangthaihs" optional="hide"/>
+            <field name="nguoiquanly" optional="hide"/>
+            <field name="trangthaics" optional="show"/>
+            <!-- Thông tin kế toán -->
+            <field name="ngaychothd" groups="dsscustomers.group_dsscustomers_ketoan_user" optional="hide"/>
+            <field name="phihopdong" groups="dsscustomers.group_dsscustomers_ketoan_user" optional="hide"/>
+            <field name="bangluong" groups="dsscustomers.group_dsscustomers_ketoan_user" optional="hide"/>
+            <field name="vitricv" groups="dsscustomers.group_dsscustomers_ketoan_user" optional="hide"/>
+            <field name="ngayravisa" groups="dsscustomers.group_dsscustomers_ketoan_user" optional="hide"/>
+            <field name="hdlaodong" groups="dsscustomers.group_dsscustomers_ketoan_user" optional="hide"/>    
+            <field name="pvchulaodong" groups="dsscustomers.group_dsscustomers_ketoan_user" optional="hide"/>            
+
+            <!-- Thông tin đào tạo -->
+            <field name="tinhtrangdaotao" optional="show"/>
+            <!-- <field name="loptienganh" optional="hide"/>
+            <field name="target" optional="hide"/>
+            <field name="dukientarget" optional="hide"/> -->
+            <field name="compute_checkgroups" invisible="1"/>
+            <field name="tanhht" optional="show" attrs="{'readonly': [('compute_checkgroups', '=', True)]}"/>            
+            <button string="Tiếng Anh ▶" type="object" class="btn-expand" name="expand_tienganh"/>            
+            <field name="thuphidt" optional="show" attrs="{'readonly': [('compute_checkgroups', '=', True)]}"/>
+            <field name="ngheht" optional="show" attrs="{'readonly': [('compute_checkgroups', '=', True)]}"/>
+            <button string="Nghề ▶" type="object" class="btn-expand" name="expand_nghe"/>
+            <field name="thuphinghe" optional="show" attrs="{'readonly': [('compute_checkgroups', '=', True)]}"/>
+            
+            
+            
+
+            <!-- Phụ trách -->
+            <field name="user_id" groups="dsscustomers.group_dsscustomers_sale_user" optional="hide"/>
+            <field name="usercs_id" groups="dsscustomers.group_dsscustomers_cs_user" optional="hide"/>
+            <field name="userpro_id" groups="dsscustomers.group_dsscustomers_processing_user" optional="hide"/>
+            <!-- <field name="userdt_id" groups="dsscustomers.group_dsscustomers_daotao_user" optional="hide"/> -->
+            <field name="teamphutrach" optional="hide"/>
+            <field name="ghichu" optional="hide"/> 
+        </tree>
+      </field>
+    </record>
+
+    <!-- CRM-Cusstumer -->
+
+    <record id="crm_form_view_customer" model="ir.ui.view">
+            <field name="name">crm.lead.oppor.inherited.crm</field>
+            <field name="model">crm.lead</field>
+            <field name="inherit_id" ref="crm.crm_lead_view_form"/>
+            <field name="arch" type="xml">
+              <header>
+                  <button name="action_view_customer_dss" type="object" attrs="{'invisible': [('type', '=', 'lead')]}" string="Chuyển đổi thành Khách hàng DSS" class="btn-primary" />
+              </header>
+
+             <!-- <button name="action_new_quotation" position="after">
+                 <button name="action_view_customer_dss" type="object" string="Chuyển dổi thành Khách hàng DSS" class="btn-primary"/>
+            </button> -->
+  
+                <!-- <button name="action_schedule_meeting" position="before"> -->
+                    <!-- <button class="oe_stat_button" type="object"  attrs="{'invisible': [('type', '=', 'lead')]}"
+                        name="action_view_customer_dss" icon="fa-pencil-square-o">
+                         <span class="o_stat_text">Khách hàng</span>
+                    </button> -->
+                    <!-- <button class="oe_stat_button" type="object"  attrs="{'invisible': [('type', '=', 'lead')]}"
+                        name="action_dongbo_dss" icon="fa-pencil-square-o">
+                         <span class="o_stat_text">Đồng bộ Lịch sử</span>
+                    </button> -->
+                <!-- </button> -->
+
+            </field>
+      </record>
+
+    <!-- explicit list view definition -->
+        <record id="view_customers_filter" model="ir.ui.view">
+            <field name="name">dsscustomers.dsscustomers.search</field>
+            <field name="model">dsscustomers.dsscustomers</field>
+            <field name="arch" type="xml">
+               <search string="Search">
+                    <field name="khachhang_id" string="Tên Khách hàng"/>
+                    <field name="masokh"/>
+                    <!-- <field name="phonekh"/>
+                    <field name="mobile"/> -->
+                    <field name="visa"/>
+                    <!-- <field name="emailkh"/>   -->
+                    <group expand="0" string="Group By">
+                        <filter string="Sale" name="user_id" context="{'group_by':'user_id'}"/>  
+                        <filter string="Phụ trách CS" name="usercs_id" context="{'group_by':'usercs_id'}"/>  
+                        <filter string="Phụ trách Processing" name="userpro_id" context="{'group_by':'userpro_id'}"/>                                     
+                        <filter string="Team" name="teamphutrach" context="{'group_by':'teamphutrach'}"/>
+                        <filter string="Visa" name="visa" context="{'group_by':'visa'}"/>
+                        <filter string="Nghề Booking" name="nghebooking" context="{'group_by':'nghebooking'}"/>
+                        <filter string="Quốc gia book" name="quocgiabook" context="{'group_by':'quocgiabook'}"/>
+                        <filter string="Trạng thái CS" name="trangthaics" context="{'group_by':'trangthaics'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+    <!-- actions opening views on models -->
+
+    <record model="ir.actions.act_window" id="action_dsscustomers">
+      <field name="name">Khách hàng</field>
+      <field name="res_model">dsscustomers.dsscustomers</field>
+      <field name="view_mode">tree,form</field>
+      <field name="view_id" ref="view_dsscustomers_tree"/>
+    </record>
+
+    <!-- Top menu item -->
+
+    <menuitem name="Khách hàng DSS" id="menu_dsscustomers_root"
+              sequence="18"        
+              web_icon="dsscustomers,static/description/icon.png"/>
+
+    <!-- menu categories -->
+    <menuitem name="Khách hàng" 
+            id="dsscustomers_menu_1" 
+            parent="menu_dsscustomers_root"
+            action="action_dsscustomers"/>
+
+    <menuitem name="Đào tạo tiếng Anh"
+            id="dsscustomers_menu_3"
+            parent="menu_dsscustomers_root"/>
+
+    <menuitem name="Đào tạo nghề"
+            id="dsscustomers_menu_5" 
+            parent="menu_dsscustomers_root"/>
+
+    <menuitem name="Processing" 
+            id="dsscustomers_menu_7" 
+            parent="menu_dsscustomers_root"
+            sequence="30"/>
+  </data>
+</odoo>

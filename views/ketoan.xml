@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data>
+
+    <!-- ============ SEARCH VIEW ============ -->
+    <record id="view_ketoan_search" model="ir.ui.view">
+      <field name="name">dsscustomers.ketoan.search</field>
+      <field name="model">dsscustomers.ketoan</field>
+      <field name="arch" type="xml">
+        <search string="Tìm kiếm">
+          <field name="khachhangkt_ids" string="Khách hàng"/>
+          <field name="masokh"/>
+          <field name="visa"/>
+          <field name="trangthaics"/>
+          <field name="user_id"/>
+          <group expand="0" string="Group By">
+            <filter string="Trạng thái CS" name="grp_trangthaics" context="{'group_by': 'trangthaics'}"/>
+            <filter string="Sale" name="grp_user" context="{'group_by': 'user_id'}"/>
+            <filter string="Team" name="grp_team" context="{'group_by': 'teamphutrach'}"/>
+          </group>
+          <!-- Quick filters trạng thái -->
+          <filter string="Active" name="flt_active" domain="[('trangthaics','=','active')]"/>
+          <filter string="Thanh lý" name="flt_thanhly" domain="[('trangthaics','in',['thanhly','dangthanhly'])]"/>
+          <filter string="Tạm hoãn" name="flt_tamhoan" domain="[('trangthaics','=','tamhoan')]"/>
+          <filter string="Đã hoàn thành" name="flt_done" domain="[('trangthaics','=','dahoanthanh')]"/>
+        </search>
+      </field>
+    </record>
+
+    <!-- ============ TREE VIEW ============ -->
+    <record id="view_ketoan_tree" model="ir.ui.view">
+      <field name="name">dsscustomers.ketoan.tree</field>
+      <field name="model">dsscustomers.ketoan</field>
+      <field name="arch" type="xml">
+        <tree string="Tiến độ thanh toán" default_order="id desc" multi_edit="1">
+          <field name="sottktoan"/>
+          <field name="khachhangkt_ids"/>
+          <field name="masokh"/>
+          <field name="visa"/>
+          <field name="trangthaics"/>
+          <field name="ngaydukien"/>
+          <field name="sotiendukien"/>
+          <field name="ngaytt"/>
+          <field name="sotientt"/>
+          <field name="percentage"/>
+          <field name="ktcheck"/>
+          <field name="user_id" groups="dsscustomers.group_dsscustomers_ketoan_user"/>
+          <field name="teamphutrach" groups="dsscustomers.group_dsscustomers_ketoan_user"/>
+        </tree>
+      </field>
+    </record>
+
+    <!-- ============ FORM VIEW ============ -->
+    <record id="ketoan_dsscustomers_view_form" model="ir.ui.view">
+      <field name="name">dsscustomers.ketoan.form</field>
+      <field name="model">dsscustomers.ketoan</field>
+      <field name="arch" type="xml">
+        <form string="Tiến độ thanh toán">
+        <header/>
+          <sheet>
+            <group>
+              <group>
+                <field name="sottktoan" readonly="1"/>
+                <field name="khachhangkt_ids" options="{'no_create': False}"/>
+                <field name="trangthaics" readonly="1"/>
+                <field name="visa" readonly="1"/>
+                <field name="masokh" readonly="1"/>
+                <field name="user_id" readonly="1" groups="dsscustomers.group_dsscustomers_ketoan_user"/>
+                <field name="teamphutrach" readonly="1" groups="dsscustomers.group_dsscustomers_ketoan_user"/>
+              </group>
+              <group>
+                <field name="ngaychothd" readonly="1"/>
+                <label for="phihopdong"/>
+                <div class="o_row">
+                  <field name="phihopdong" readonly="1"/>
+                  <field name="currency_ids" readonly="1"/>
+                </div>
+              </group>
+            </group>
+
+            <group string="Đợt thanh toán">
+              <group>
+                <field name="giaidoantt"/>
+                <field name="lanthanhtoan"/>
+                <field name="ngaydukien"/>
+                <field name="currency_id" required="1"/>
+                <field name="sotiendukien"/>
+              </group>
+              <group>
+                <field name="ngaytt"/>
+                <field name="sotientt"/>
+                <field name="percentage" readonly="1"/>
+                <field name="ktcheck"/>
+              </group>
+            </group>
+          </sheet>
+          <div class="oe_chatter">
+            <field name="message_follower_ids" widget="mail_followers"/>
+            <field name="activity_ids" widget="mail_activity"/>
+            <field name="message_ids" widget="mail_thread"/>
+          </div>
+        </form>
+      </field>
+    </record>
+
+    <!-- ============ ACTIONS (4 bộ lọc theo trạng thái CS) ============ -->
+    <record id="action_ketoan_all" model="ir.actions.act_window">
+      <field name="name">Kế Toán - Tất cả</field>
+      <field name="res_model">dsscustomers.ketoan</field>
+      <field name="view_mode">tree,form</field>
+      <field name="search_view_id" ref="view_ketoan_search"/>
+      <field name="context">{}</field>
+    </record>
+
+    <record id="action_ketoan_active" model="ir.actions.act_window">
+      <field name="name">Kế Toán - Active</field>
+      <field name="res_model">dsscustomers.ketoan</field>
+      <field name="view_mode">tree,form</field>
+      <field name="search_view_id" ref="view_ketoan_search"/>
+      <field name="domain">[('trangthaics','=','active')]</field>
+    </record>
+
+    <record id="action_ketoan_thanhly" model="ir.actions.act_window">
+      <field name="name">Kế Toán - Thanh lý</field>
+      <field name="res_model">dsscustomers.ketoan</field>
+      <field name="view_mode">tree,form</field>
+      <field name="search_view_id" ref="view_ketoan_search"/>
+      <field name="domain">[('trangthaics','in',['thanhly','dangthanhly'])]</field>
+    </record>
+
+    <record id="action_ketoan_tamhoan" model="ir.actions.act_window">
+      <field name="name">Kế Toán - Tạm hoãn</field>
+      <field name="res_model">dsscustomers.ketoan</field>
+      <field name="view_mode">tree,form</field>
+      <field name="search_view_id" ref="view_ketoan_search"/>
+      <field name="domain">[('trangthaics','=','tamhoan')]</field>
+    </record>
+
+    <record id="action_ketoan_hoanthanh" model="ir.actions.act_window">
+      <field name="name">Kế Toán - Đã hoàn thành</field>
+      <field name="res_model">dsscustomers.ketoan</field>
+      <field name="view_mode">tree,form</field>
+      <field name="search_view_id" ref="view_ketoan_search"/>
+      <field name="domain">[('trangthaics','=','dahoanthanh')]</field>
+    </record>
+
+    <!-- ============ MENUS ============ -->
+    <!-- Menu gốc “Khách hàng DSS” đã có id menu_dsscustomers_root -->
+    <menuitem id="menu_ketoan_root"
+              name="Kế Toán"
+              parent="menu_dsscustomers_root"
+              sequence="40"/>
+
+    <menuitem id="menu_ketoan_all"
+              name="Tất cả"
+              parent="menu_ketoan_root"
+              action="action_ketoan_all"
+              sequence="1"/>
+
+    <menuitem id="menu_ketoan_active"
+              name="Active"
+              parent="menu_ketoan_root"
+              action="action_ketoan_active"
+              sequence="2"/>
+
+    <menuitem id="menu_ketoan_thanhly"
+              name="Thanh lý"
+              parent="menu_ketoan_root"
+              action="action_ketoan_thanhly"
+              sequence="3"/>
+
+    <menuitem id="menu_ketoan_tamhoan"
+              name="Tạm hoãn"
+              parent="menu_ketoan_root"
+              action="action_ketoan_tamhoan"
+              sequence="4"/>
+
+    <menuitem id="menu_ketoan_hoanthanh"
+              name="Đã hoàn thành"
+              parent="menu_ketoan_root"
+              action="action_ketoan_hoanthanh"
+              sequence="5"/>
+
+  </data>
+</odoo>

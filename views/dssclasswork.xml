@@ -1,0 +1,121 @@
+<odoo>
+  <data>
+  <record model="ir.ui.view" id="view_dsscustomers_classroomwork_form">
+      <field name="name">dsscustomers.classroomwork.form</field>
+      <field name="model">dsscustomers.classroomwork</field>
+      <field name="arch" type="xml">
+               <form> 
+                    <sheet>
+                       <!-- <div class="oe_button_box" name="button_box">
+                            <button name="action_dsscustomers_attendance_sheet" type="object" groups="dsscustomers.group_dsscustomers_daotao_user" class="oe_stat_button" icon="fa-calendar" >
+                                <div class="o_stat_info">
+                                    <span class="o_stat_text">Attendance Sheet</span>
+                                </div>
+                            </button>
+                       </div> -->
+                      <group>
+                            <group>                 
+                                  <field name="class_code"/>
+                                  <field name="flatform"/>
+                                  <field name="links_room"/>
+                                  <field name="ngaybatdau"/>
+                                  <field name="ngaykethuc"/>
+                                  <field name="classstatus"/>
+                            </group>
+                            <group>                                  
+                                  <field name="ngaykethuctest"/>
+                                  <field name="coursework_id"/>
+                                  <field name="students_count"/>
+                                  <field name="teacher_ids" widget="many2many_tags"/>
+                                  <field name="days"/>
+                                  <field name="time"/>
+                                  <field name="links_room"/>
+                                  <field name="links_cms"/>
+                                  <field name="userpic_id"/>                                 
+                                  
+                            </group>
+                         </group>
+                          <notebook>
+                                <page string="Thông tin học viên" name="hocvien_dangky">
+                                  <field name="dangkynghe_ids" nolabel="1"> 
+                                      <tree>
+                                          <field name="madangkynghe"/>
+                                          <field name="sinhvien_ids"/>
+                                          <field name="masokh" optional="show"/> 
+                                          <field name="visa" optional="hide"/> 
+                                          <!-- <field name="phonekh" optional="hide"/>                                            -->
+                                          <field name="note" optional="show"/>
+                                           <field name="feedback_training" optional="show"/>
+                                      </tree>                           
+                                    </field> 
+                                </page>  
+                                <page name="noteclass" string="Ghi chú">
+                                   <field name="note_class"/>
+                                </page>                         
+                          </notebook>
+                    </sheet>
+                 <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+                </form>
+      </field>
+    </record>
+
+    <!-- list view Processing nghe -->
+    <record model="ir.ui.view" id="view_dsscustomers_classroomwork_tree">
+      <field name="name">dsscustomers.classroomwork.tree</field>
+      <field name="model">dsscustomers.classroomwork</field>
+      <field name="arch" type="xml">
+             <tree>
+                            <field name="class_code"/>
+                            <field name="flatform"/>                            
+                            <field name="ngaybatdau"/>
+                            <field name="ngaykethuc"/>
+                            <field name="ngaykethuctest" optional="hide"/>  
+                            <field name="coursework_id" optional="hide"/>                              
+                            <field name="days" optional="hide"/>  
+                            <field name="time" optional="hide"/>  
+                            <field name="teacher_tags" optional="hide"/>  
+                            <field name="students_count" optional="show"/>                         
+                            <field name="classstatus" optional="show"/>
+                            <field name="links_room" width="50px" widget="url" optional="show"/>
+                            <field name="links_cms" width="50px" widget="url" optional="show"/>
+                            <field name="userpic_id" optional="show"/>
+                            <field name="note_class" optional="show"/>
+                </tree>
+      </field>
+    </record>
+
+            <!-- filter -->
+        <record id="view_customers_classroomwork_filter" model="ir.ui.view">
+            <field name="name">dsscustomers.classroomwork.search</field>
+            <field name="model">dsscustomers.classroomwork</field>
+            <field name="arch" type="xml">
+               <search string="Search">
+                    <field name="class_code"/>
+                    <separator/>  
+                    <group expand="0" string="Group By">
+                        <filter string="Class Status" name="classstatus" context="{'group_by':'classstatus'}"/>
+                         <filter string="Class Code" name="class_code" context="{'group_by':'class_code'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+   <!-- Action-->
+   <record model="ir.actions.act_window" id="action_dsscustomers_classroomwork">
+      <field name="name">Lớp</field>
+      <field name="res_model">dsscustomers.classroomwork</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
+<!-- Menu-->
+ <menuitem name="Lớp"
+                id="dsscustomers_menu_work_5"
+                parent="dsscustomers_menu_5"
+                action="action_dsscustomers_classroomwork"
+                groups="dsscustomers.group_dsscustomers_daotao_user"/>
+  </data>
+</odoo>

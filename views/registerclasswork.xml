@@ -1,0 +1,94 @@
+<odoo>
+  <data>
+  <record model="ir.ui.view" id="view_dsscustomers_registerwork_form">
+      <field name="name">dsscustomers.registerwork.form</field>
+      <field name="model">dsscustomers.registerwork</field>
+      <field name="arch" type="xml">
+               <form>
+                  <sheet>
+                      <!-- <div class="oe_button_box" name="button_box">
+                            <button name="action_dsscustomers_attendance_line" type="object" groups="dsscustomers.group_dsscustomers_daotao_user" class="oe_stat_button" icon="fa-calendar" >
+                                <div class="o_stat_info">
+                                    <span class="o_stat_text">Attendance Line</span>
+                                </div>
+                            </button>
+                       </div> -->
+                     <group>
+                          <group>
+                                <field name="sinhvien_ids"/>
+                                <field name="masokh"/>
+                                <field name="classroomwork_id"/>                                
+                                <field name="coursework_id"/>
+                                <field name="note"/>
+                                
+                                <field name="ngaybatdau"/> 
+                                <field name="ngaykethuc"/>  
+                          </group>
+                          <group>
+                                  <field name="madangkynghe"/>
+                                  <field name="visa"/>
+                                  <field name="phonekh"/>
+                                  <field name="classstatus"/>
+                                  <field name="links_room"/>
+                                  <field name="score"/>
+                            </group>
+                      </group>
+                      <group>
+                                  <field name="feedback_training"/>
+                                  <field name="lythuyet" optional="show"/>
+                                  <field name="thuchanh" optional="show"/> 
+                                  <field name="thuctap" optional="show"/> 
+                                  <field name="tongtiendo" optional="show"/>
+                        
+                      </group>
+                    </sheet>
+                 <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+              </form>
+      </field>
+    </record>
+
+    <!-- list view Processing nghe -->
+    <record model="ir.ui.view" id="view_dsscustomers_registerwork_tree">
+      <field name="name">dsscustomers.registerwork.tree</field>
+      <field name="model">dsscustomers.registerwork</field>
+      <field name="arch" type="xml">
+             <tree>
+                  <field name="madangkynghe"/>
+                  <field name="sinhvien_ids"/>
+                  <field name="masokh"/>
+                  <field name="visa"/>
+                  <field name="phonekh" optional="show"/>
+                  <field name="classroomwork_id"/>
+                  <field name="coursework_id" optional="show"/>
+                  <field name="classstatus" optional="show"/>
+                  <field name="links_room" widget="url" optional="show"/>
+                  <field name="score" optional="show"/>
+                  <field name="feedback_training" optional="show"/>
+                  <field name="ngaybatdau" optional="show"/>
+                  <field name="ngaykethuc" optional="show"/> 
+                  <field name="note" optional="show"/>
+              </tree>
+      </field>
+    </record>
+
+   <!-- Action-->
+   <record model="ir.actions.act_window" id="action_dsscustomers_registerwork">
+      <field name="name">Đăng ký học viên</field>
+      <field name="res_model">dsscustomers.registerwork</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
+<!-- Menu-->
+ <menuitem name="Đăng ký học viên"
+                id="dsscustomers_menu_work_6"
+                parent="dsscustomers_menu_5"
+                action="action_dsscustomers_registerwork"
+                groups="dsscustomers.group_dsscustomers_daotao_user"/>
+
+
+  </data>
+</odoo>

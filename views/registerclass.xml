@@ -1,0 +1,145 @@
+<odoo>
+  <data>
+    <record model="ir.ui.view" id="view_dsscustomers_register_form">
+      <field name="name">dsscustomers.register.form</field>
+      <field name="model">dsscustomers.register</field>
+      <field name="arch" type="xml">
+               <form>
+                  <sheet>
+                      <!-- <div class="oe_button_box" name="button_box">
+                            <button name="action_dsscustomers_attendance_line" type="object" groups="dsscustomers.group_dsscustomers_daotao_user" class="oe_stat_button" icon="fa-calendar" >
+                                <div class="o_stat_info">
+                                    <span class="o_stat_text">Attendance Line</span>
+                                </div>
+                            </button>
+                       </div> -->
+                     <group string="Thông tin học viên">
+                          <group>
+                                <field name="sinhvien_ids"/>
+                                <field name="masokh"/>
+                                <field name="classroom_id"/>                                
+                                <field name="course_id"/>                                                               
+                                <field name="monhoc_ids" widget="many2many_tags"/> 
+                                <field name="note"/>                               
+                                <field name="ngaybatdau"/> 
+                                <field name="ngaykethuc"/>                       
+                                <!-- <field name="attendance_line_ids"/>  -->                                                                     
+                          </group>
+                          <group>
+                                <field name="actual_start"/>
+                                <field name="actual_end"/>  
+                                <field name="madangky"/>
+                                <field name="visa"/>
+                                <field name="phonekh"/>
+                                <field name="classstatus"/>
+                                <field name="links_room"/>
+                          </group>
+                      </group>
+                      <Group string="Điểm thi">
+                           <group>
+                                <field name="ge_score"/>
+                                <field name="ielts_list"/>
+                                <field name="ielts_writ"/>
+                           </group>
+                           <group>
+                                <field name="ielts_speak"/>
+                                <field name="ielts_over"/>
+                          </group> 
+                      </Group>
+                      <group string="Đánh giá Kết quả">
+                          <group>
+                              <field name="feedback_training"/>
+                              <field name="interview"/>   
+                              <field name="communication"/>            
+                          </group>
+                          <group>                             
+                              <field name="tongtiendo"/>
+                              <field name="tylehoanthanh"/>                  
+                          </group>
+                        </group>
+                    </sheet>
+                 <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+                </div>
+              </form>
+        </field>
+      </record>
+
+      <record model="ir.ui.view" id="view_dsscustomers_register_report_tree">
+      <field name="name">dsscustomers.register.tree</field>
+      <field name="model">dsscustomers.register</field>
+      <field name="arch" type="xml">
+             <tree>
+                  <field name="classroom_id"/>
+                  <field name="course_id" optional="show"/>
+                  <field name="classstatus" optional="show"/>     
+                  <field name="ge_score" optional="hide"/>
+                  <field name="ielts_list" optional="hide"/>
+                  <field name="ielts_writ" optional="hide"/>
+                  <field name="ielts_speak" optional="hide"/>
+                  <field name="ielts_over" optional="hide"/>
+                  <field name="feedback_training" optional="show"/>
+                  <field name="ngaybatdau" optional="show"/>
+                  <field name="ngaykethuc" optional="show"/> 
+                  <field name="interview" optional="show"/>
+                  <field name="communication" optional="show"/> 
+                  <field name="tongtiendo" optional="show"/>
+                  <field name="tylehoanthanh" optional="show"/>       
+                  <field name="note" optional="show"/>
+              </tree>
+      </field>
+    </record>
+
+    <!-- list view Processing nghe -->
+    <record model="ir.ui.view" id="view_dsscustomers_register_tree">
+      <field name="name">dsscustomers.register.tree</field>
+      <field name="model">dsscustomers.register</field>
+      <field name="arch" type="xml">
+             <tree>
+                  <field name="madangky"/>
+                  <field name="sinhvien_ids"/>
+                  <field name="masokh"  optional="hide"/>
+                  <field name="visa"  optional="hide"/>
+                  <field name="phonekh" optional="hide"/>
+                  <field name="classroom_id"  optional="hide"/>
+                  <field name="course_id" optional="show"/>
+                  <field name="classstatus" optional="show"/>
+                  <!-- <field name="links_room" widget="url" optional="hide"/> -->
+                  <field name="ge_score" optional="hide"/>
+                  <field name="ielts_list" optional="hide"/>
+                  <field name="ielts_writ" optional="hide"/>
+                  <field name="ielts_speak" optional="hide"/>
+                  <field name="ielts_over" optional="hide"/>
+                  <field name="feedback_training" optional="hide"/>
+                  <field name="ngaybatdau" optional="hide"/>
+                  <field name="ngaykethuc" optional="hide"/> 
+                  <field name="actual_start" optional="hide"/>
+                  <field name="actual_end" optional="hide"/> 
+                  <field name="interview" optional="show"/>
+                  <field name="communication" optional="show"/> 
+                  <field name="tongtiendo" optional="show"/>
+                  <field name="tylehoanthanh" optional="show"/>       
+                  <field name="note" optional="hide"/>
+              </tree>
+      </field>
+    </record>
+
+   <!-- Action-->
+   <record model="ir.actions.act_window" id="action_dsscustomers_register">
+      <field name="name">Đăng ký lớp</field>
+      <field name="res_model">dsscustomers.register</field>
+      <field name="view_mode">tree,form</field>
+      <field name="view_id" ref="dsscustomers.view_dsscustomers_register_tree"/>
+    </record>
+
+<!-- Menu-->
+    <menuitem name="Đăng ký lớp"
+    id="dsscustomers_menu_7_list"
+    parent="dsscustomers_menu_3"
+    action="action_dsscustomers_register"
+    sequence="7"
+    groups="dsscustomers.group_dsscustomers_daotao_user"/>
+  </data>
+</odoo>

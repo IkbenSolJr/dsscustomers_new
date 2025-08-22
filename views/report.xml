@@ -1,0 +1,110 @@
+<odoo>
+  <data>
+
+    <!-- Tree view-->
+    <record model="ir.ui.view" id="view_report_dsscustomers_tree">
+      <field name="name">dsscustomers list</field>
+      <field name="model">dsscustomers.dsscustomers</field>
+      <field name="arch" type="xml">
+        <tree multi_edit="1" decoration-success="visa == '482'">
+            <!-- Thông tin cơ bản -->
+            <!-- <field name="thutu"/> -->
+            <field name="stt_count"/>
+			      <field name="masokh"/>
+            <field name="khachhang_id"/>            
+            <field name="visa" optional="hide"/> 
+            <field name="namsinh" optional="hide"/> 
+            <field name="emailkh" optional="hide"/> 
+            <field name="phonekh" optional="hide"/> 
+            <field name="nhucaukh" optional="hide"/> 
+            <field name="trinhdokh" optional="hide"/>                  
+            <field name="diachi" optional="hide"/> 
+            <field name="nghenghiep" optional="hide"/>
+            <field name="nghenghiepvisa" optional="hide"/>
+            <field name="tinhtranghs"/>  
+            <field name="daotaonghe" optional="hide"/>
+            <field name="trangthaihs" optional="hide"/>
+            <field name="nguoiquanly" optional="hide"/>
+            <field name="trangthaics" optional="show"/>
+            <!-- Thông tin kế toán -->
+            <field name="ngaychothd" groups="dsscustomers.group_dsscustomers_ketoan_user" optional="hide"/>
+            <field name="phihopdong" groups="dsscustomers.group_dsscustomers_ketoan_user" optional="hide"/>
+            <field name="bangluong" groups="dsscustomers.group_dsscustomers_ketoan_user" optional="hide"/>
+            <field name="vitricv" groups="dsscustomers.group_dsscustomers_ketoan_user" optional="hide"/>
+            <field name="ngayravisa" groups="dsscustomers.group_dsscustomers_ketoan_user" optional="hide"/>
+            <field name="hdlaodong" groups="dsscustomers.group_dsscustomers_ketoan_user" optional="hide"/>    
+            <field name="pvchulaodong" groups="dsscustomers.group_dsscustomers_ketoan_user" optional="hide"/>            
+
+            <!-- Thông tin đào tạo -->
+            <field name="tinhtrangdaotao" optional="hide"/>
+            <field name="loptienganh" optional="hide"/>
+            <field name="target" optional="hide"/>
+            <field name="dukientarget" optional="hide"/>
+            <field name="user_id" groups="dsscustomers.group_dsscustomers_sale_user" optional="hide"/>
+            <field name="usercs_id" groups="dsscustomers.group_dsscustomers_cs_user" optional="hide"/>
+            <field name="userpro_id" groups="dsscustomers.group_dsscustomers_processing_user" optional="hide"/>
+            <!-- <field name="userdt_id" groups="dsscustomers.group_dsscustomers_daotao_user" optional="hide"/> -->
+            <field name="teamphutrach" optional="hide"/>
+            <field name="ghichu" optional="hide"/> 
+        </tree>
+      </field>
+    </record>
+
+    <!-- CRM-Cusstumer -->
+
+    <record id="crm_form_view_customer" model="ir.ui.view">
+            <field name="name">crm.lead.oppor.inherited.crm</field>
+            <field name="model">crm.lead</field>
+            <field name="inherit_id" ref="crm.crm_lead_view_form"/>
+            <field name="arch" type="xml">
+  
+                <button name="action_schedule_meeting" position="before">
+                    <button class="oe_stat_button" type="object"  attrs="{'invisible': [('type', '=', 'lead')]}"
+                        name="action_view_customer_dss" icon="fa-pencil-square-o">
+                         <span class="o_stat_text">Khách hàng</span>
+                    </button>
+                </button>
+            </field>
+      </record>
+
+    <!-- explicit list view definition -->
+        <record id="view_customers_filter" model="ir.ui.view">
+            <field name="name">dsscustomers.dsscustomers.search</field>
+            <field name="model">dsscustomers.dsscustomers</field>
+            <field name="arch" type="xml">
+               <search string="Search">
+                    <field name="khachhang_id" string="Tên Khách hàng"/>
+                    <field name="masokh"/>
+                    <field name="phonekh"/>
+                    <field name="visa"/>
+                    <field name="emailkh"/>  
+                    <separator/>
+                    <filter string="Khách hàng của tôi" name="assigned_to_me"
+                        domain="[('usercs_id', '=', uid)]" groups="dsscustomers.group_dsscustomers_cs_user" />       
+                    <group expand="0" string="Group By">
+                        <filter string="Phụ trách CS" name="usercs_id" context="{'group_by':'usercs_id'}"/>  
+                        <filter string="Phụ trách Processing" name="userpro_id" context="{'group_by':'userpro_id'}"/>                                     
+                        <filter string="Team" name="teamphutrach" context="{'group_by':'teamphutrach'}"/>
+                        <filter string="Visa" name="visa" context="{'group_by':'visa'}"/>
+                        <filter string="Trạng thái CS" name="trangthaics" context="{'group_by':'trangthaics'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+    <!-- actions opening views on models -->
+
+    <record model="ir.actions.act_window" id="action_report_dsscustomers">
+      <field name="name">Báo cáo</field>
+      <field name="res_model">dsscustomers.dsscustomers</field>
+      <field name="view_mode">tree</field>
+    </record>
+
+
+    <!-- menu categories -->
+    <menuitem name="Báo cáo" 
+                id="dsscustomers_menu_2" 
+            parent="menu_dsscustomers_root"
+            action="action_report_dsscustomers"/>
+  </data>
+</odoo>

@@ -1,0 +1,71 @@
+<odoo>
+  <data>
+
+<!-- Form view Processing Curency -->
+  <record model="ir.ui.view" id="processing_curency_dsscustomers_view_form">
+      <field name="name">dsscustomers.processing.curency.form</field>
+      <field name="model">dsscustomers.processing.curency</field>
+      <field name="arch" type="xml">
+        <form>
+          <sheet>
+             <div class="oe_title">
+                    <h1>
+                            <field name="khcurency_ids" readonly="1"/>
+                    </h1>
+                   </div>
+
+                    <group>
+                       <group>
+                            <field name="lanthu"/>
+                            <field name="ngaycom"/>
+                        </group>
+                        <group>
+                             <field name="sotien"/>
+                        </group>
+                  </group>              
+            </sheet>
+              <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids"/>
+              </div>
+        </form>
+      </field>
+    </record>
+
+
+    <!-- list view Processing Curency -->
+    <record model="ir.ui.view" id="view_dsscustomers_processing_curency_tree">
+      <field name="name">dsscustomers.processing.curency.tree</field>
+      <field name="model">dsscustomers.processing.curency</field>
+      <field name="arch" type="xml">
+          <tree create="false">
+                <field name="khcurency_ids"/>
+                <field name="masokh" optional="show"/> 
+                <field name="phonekh" optional="show"/> 
+                <field name="visa" optional="hide"/> 
+                <field name="lanthu"/>
+                <field name="ngaycom"/>
+                <field name="sotien"/>
+          </tree>
+      </field>
+    </record>
+
+
+  <!-- Action -->
+    <record model="ir.actions.act_window" id="action_dsscustomers_processing_dhcom">
+      <field name="name">Processing Com</field>
+      <field name="res_model">dsscustomers.processing.curency</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+<!-- Menu-->
+
+
+<menuitem name="Processing Com" 
+            id="dsscustomers_menu_list_8" 
+            parent="dsscustomers_menu_7"
+            action="action_dsscustomers_processing_dhcom"
+            groups="dsscustomers.group_dsscustomers_processing_user"/>
+
+  </data>
+</odoo>

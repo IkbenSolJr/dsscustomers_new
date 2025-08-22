@@ -1,0 +1,74 @@
+<odoo>
+  <data>
+ 
+    <!-- list view  -->
+    <record model="ir.ui.view" id="view_dsscustomers_classrom_detail_tree">
+      <field name="name">dsscustomers.classrom.detail.tree</field>
+      <field name="model">dsscustomers.register</field>
+      <field name="arch" type="xml">
+             <tree>
+                  <field name="classroom_id"/>
+                  <field name="links_room" widget="url" optional="show"/>
+                  <field name="flatform"/>
+                  <field name="userpic_id"/>
+                  <field name="classstatus" optional="show"/>
+                  <field name="students_count" optional="show"/>                  
+                  <field name="sinhvien_ids"/>
+                  <field name="masokh"/>
+                  <field name="visa"/>
+                  <field name="course_id" optional="show"/>                
+                  <!-- <field name="teacher_id" optional="show"/> -->
+                  <!-- <field name="score" optional="show"/> -->
+                  <field name="feedback_training" optional="show"/>
+                  <field name="ngaybatdau" optional="show"/>
+                  <field name="ngaykethuc" optional="show"/> 
+                  <field name="actual_start" optional="hide"/>
+                  <field name="actual_end" optional="hide"/> 
+                  <field name="ge_score" optional="show"/>
+                  <field name="ielts_list" optional="show"/>
+                  <field name="ielts_writ" optional="show"/>
+                  <field name="ielts_speak" optional="show"/>
+                  <field name="ielts_over" optional="show"/>
+                  <field name="teacher_ids" widget="many2many_tags" optional="show"/>
+                  <field name="days" optional="show"/>
+                  <field name="time" optional="show"/>
+                  <field name="note" optional="show"/>
+              </tree>
+      </field>
+    </record>
+
+        <!-- explicit list view definition -->
+        <record id="view_customers_register_filter" model="ir.ui.view">
+            <field name="name">dsscustomers.register.search</field>
+            <field name="model">dsscustomers.register</field>
+            <field name="arch" type="xml">
+               <search string="Search">
+                    <field name="sinhvien_ids" string="Tên Khách hàng"/>
+                    <field name="masokh"/>
+                    <field name="visa"/>
+                    <separator/>  
+                    <group expand="0" string="Group By">
+                        <filter string="Class Status" name="classstatus" context="{'group_by':'classstatus'}"/>
+                         <filter string="Ngày bắt đầu" name="ngaybatdau" context="{'group_by':'ngaybatdau'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+   <!-- Action-->
+   <record model="ir.actions.act_window" id="action_dsscustomers_classrom_detail">
+      <field name="name">Báo cáo chi tiết lớp học</field>
+      <field name="res_model">dsscustomers.register</field>
+      <field name="view_mode">tree</field>
+    </record>
+
+<!-- Menu-->
+ <menuitem name="Báo cáo chi tiết lớp học"
+                id="dsscustomers_menu_12_list" 
+                parent="dsscustomers_menu_3"
+                action="action_dsscustomers_classrom_detail"
+                sequence="10"
+                groups="dsscustomers.group_dsscustomers_daotao_user"/>
+
+  </data>
+</odoo>

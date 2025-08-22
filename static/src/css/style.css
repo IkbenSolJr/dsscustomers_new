@@ -1,0 +1,8 @@
+.o_attachments {
+  display: flex;
+  flex-wrap: wrap;
+}
+.o_attachment.o_attachment_many2many {
+  flex-grow: 1;
+  width: 25%;
+}

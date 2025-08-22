@@ -1,0 +1,149 @@
+<odoo>
+  <data>
+
+<!-- Form view Processing Du hoc -->
+  <record model="ir.ui.view" id="processing_duhoc_dsscustomers_view_form">
+      <field name="name">dsscustomers.processing.duhoc.form</field>
+      <field name="model">dsscustomers.processing.duhoc</field>
+      <field name="arch" type="xml">
+        <form>
+          <sheet>
+             <div class="oe_title">
+                    <h1>
+                            <field name="khachhangdh_ids" readonly="1"/>
+                    </h1>
+                   </div>
+
+                    <group>
+                        <group>
+                          <field name="sottpro" readonly="1"/>
+                          <field name="masokh"/>    
+                          <field name="guichecklist"/>
+                          <field name="nhaphskh"/>
+                          <field name="dichhskh"/>
+                          <!-- <field name="bangta"/>
+                          <field name="sodiemta"/> -->
+                          <field name="xinoffer"/>
+                          <field name="nhanoffer"/>
+                          <field name="tennganhhoc"/>
+                          <field name="donghocphioshc"/>                                          
+                          <field name="coes"/>
+
+                        </group>
+                        <group>                          
+                          <field name="vietsopgte"/>
+                          <field name="dienformvisa"/>     
+                          <field name="nopvisa"/>   
+                          <field name="bennopvisa"/> 
+                          <field name="ngaynopvisa"/>
+                          <field name="ngayhethanvisa"/>  
+                          <field name="tappv"/> 
+                          <field name="nhankqpv"/>   
+                          <field name="huongdanbay"/>
+                          <field name="userpro_id" readonly="1"/>      
+                        </group> 
+                  </group>
+                  <notebook>
+                      <page string="Giai đoạn thanh toán" name="procesingcurency">
+                          <field name="processinginfo_ids"> 
+                             <tree>
+                                  <field name="lanthu"/>
+                                  <field name="ngaycom"/>
+                                  <field name="sotien"/>
+                            </tree>                           
+                            </field>                  
+                            <group colspan="4">
+                                  <group class="oe_subtotal_footer oe_right">
+                                      <field name="total" colspan="2"/>
+                                  </group>                                 
+                            </group>
+                        </page>                           
+                  </notebook>
+            </sheet>
+              <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="activity_ids" widget="mail_activity"/>
+                    <field name="message_ids" widget="mail_thread"/>
+              </div>
+        </form>
+      </field>
+    </record>
+
+
+    <!-- list view Processing Du hoc -->
+    <record model="ir.ui.view" id="view_dsscustomers_processing_duhoc_tree">
+      <field name="name">dsscustomers.processing.duhoc.tree</field>
+      <field name="model">dsscustomers.processing.duhoc</field>
+      <field name="arch" type="xml">
+          <tree multi_edit="1" create="false">
+                  <field name="sottpro" readonly="1"/>
+                  <field name="khachhangdh_ids"/>
+                  <field name="masokh" optional="show"/> 
+                  <field name="phonekh" optional="hide"/> 
+                  <field name="visa" optional="hide"/> 
+                  <field name="guichecklist" optional="show"/>
+                  <field name="nhaphskh" optional="show"/>
+                  <field name="dichhskh" optional="show"/>
+                  <field name="xinoffer"  optional="show"/>
+                  <field name="nhanoffer" optional="show"/>
+                  <field name="tennganhhoc" optional="show"/>
+                  <field name="donghocphioshc" optional="show"/>                                 
+                  <field name="coes" optional="show"/>
+                  <field name="vietsopgte" optional="show"/>
+                  <field name="dienformvisa" optional="show"/>   
+                  <field name="nopvisa" optional="show"/>  
+                  <field name="bennopvisa" optional="show"/>
+                  <field name="ngaynopvisa" optional="show"/>  
+                  <field name="ngayhethanvisa" optional="show"/>  
+                  <field name="tappv" optional="show"/>
+                  <field name="nhankqpv" optional="show"/> 
+                  <field name="huongdanbay" optional="show"/>
+                  <field name="total" optional="show"/>
+                  <field name="userpro_id" optional="hide" readonly="1"/>
+          </tree>
+      </field>
+    </record>
+
+    <!-- Search -->
+        <record id="view_customers_duhoc_filter" model="ir.ui.view">
+            <field name="name">dsscustomers.processing.duhoc.search</field>
+            <field name="model">dsscustomers.processing.duhoc</field>
+            <field name="arch" type="xml">
+               <search string="Search">
+                    <field name="khachhangdh_ids" string="Tên Khách hàng"/>
+                    <field name="masokh"/>
+                    <field name="phonekh"/>
+                    <field name="visa"/>
+                    <filter string="Khách hàng của tôi" name="assigned_to_me"
+                        domain="[('userpro_id', '=', uid)]"/>     
+                    <group expand="0" string="Group By">
+                        <filter string="Visa" name="visa" context="{'group_by':'visa'}"/>
+                    </group>
+            </search>
+            </field>
+        </record>
+
+  <!-- Action -->
+   <record model="ir.actions.act_window" id="action_dsscustomers_processing_duhoc">
+      <field name="name">Processing Du học</field>
+      <field name="res_model">dsscustomers.processing.duhoc</field>
+      <field name="view_mode">tree,form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{
+              'search_default_assigned_to_me': 1
+      }</field>
+      <field name="search_view_id" ref="dsscustomers.view_customers_duhoc_filter"/>
+    </record>
+
+
+<!-- Menu-->
+
+<menuitem name="Processing Du học" 
+            id="dsscustomers_menu_list_7" 
+            parent="dsscustomers_menu_7"
+            action="action_dsscustomers_processing_duhoc"
+            groups="dsscustomers.group_dsscustomers_processing_user"/>
+
+
+  </data>
+</odoo>

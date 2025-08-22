@@ -1,0 +1,51 @@
+<odoo>
+  <data>
+    <!-- Tree view Active-->
+    <record model="ir.ui.view" id="dsscustomers_cskh_thanhly_view_tree">
+      <field name="name">DSS CSKH Thanh lý</field>
+      <field name="model">dsscustomers.dsscustomers</field>
+      <field name="arch" type="xml">
+        <tree multi_edit="1" decoration-success="visa == '482'" default_order="id desc" export_xlsx="false" delete="false">
+            <!-- Thông tin cơ bản -->
+            <field name="stt_count" optional="hide"/>
+			      <field name="masokh" optional="show"/> 
+            <field name="khachhang_id" readonly="1"/>          
+            <field name="visa" optional="show"/> 
+            <field name="tinhtranghs" optional="show"/> 
+            <field name="daotaonghe" optional="hide"/>
+            <field name="trangthaihs" optional="show"/>           
+            <!-- Thông tin kế toán -->
+            <field name="ngaychothd" optional="show"/>
+            <!-- Thông tin đào tạo -->
+            <field name="tinhtrangdaotao" optional="hide"/>
+            <field name="user_id" optional="show" readonly="1"/>
+            <field name="usercs_id" groups="dsscustomers.group_dsscustomers_cs_user" optional="hide"/>
+            <field name="teamphutrach" optional="hide" readonly="1"/>
+            <field name="ghichu" optional="hide"/> 
+            <field name="trangthaics" invisible="1"/>
+        </tree>
+      </field>
+    </record>
+
+      <!-- actions opening views on models -->
+
+    <record model="ir.actions.act_window" id="dsscustomers.action_dsscustomers_cskh_thanhly">
+      <field name="name">Thanh lý</field>
+      <field name="res_model">dsscustomers.dsscustomers</field>
+      <field name="view_mode">tree,form</field>
+      <field name="domain">[('trangthaics','in',('thanhly','dangthanhly'))]</field>
+      <field name="context">{
+                'default_type': 'thanhly',
+                'search_default_type': 'thanhly',
+            }</field>
+    </record>
+
+    <!-- menu -->
+      <menuitem name="Thanh lý" 
+            id="dsscustomers_kh_thanhly" 
+            parent="dsscustomers_menu_11"
+            action="dsscustomers.action_dsscustomers_cskh_thanhly"
+            />
+            
+  </data>
+</odoo>
